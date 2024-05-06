@@ -25,60 +25,38 @@
  * It is triggered when the DOM content is fully loaded, ensuring all elements are accessible.
  */
 document.addEventListener("DOMContentLoaded", function () {
-	const observer = new MutationObserver(function (mutations, obs) {
-		const form = document.getElementById("ws-form-2");
-		const firstNameInput = document.getElementById("wsf-2-field-1");
-		const lastNameInput = document.getElementById("wsf-2-field-2");
-		const nameSpan = document.querySelector(".name-text");
-		const courseTitle = document.querySelector(".course-title");
-		const certificateBlock = document.querySelector(".ua-gd-certificate");
+    const observer = new MutationObserver(function (mutations, obs) {
+        const form = document.getElementById("ws-form-2");
+        const firstNameInput = document.getElementById("wsf-2-field-1");
+        const lastNameInput = document.getElementById("wsf-2-field-2");
+        const nameSpan = document.querySelector(".name-text");
+        const courseTitleElement = document.getElementById("course-title-hidden"); // Get the hidden p element for course title
+        const courseTitleDisplay = document.querySelector(".course-title"); // Element to display the course title
+        const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-		// Check if all elements are available
-		if (
-			form &&
-			firstNameInput &&
-			lastNameInput &&
-			nameSpan &&
-			courseTitle &&
-			certificateBlock
-		) {
-			console.log("All elements found. Adding event listeners.");
-			const updateCertificate = () => {
-				const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
-				nameSpan.textContent = fullName;
-				console.log("Certificate updated to:", fullName);
-			};
+        if (form && firstNameInput && lastNameInput && nameSpan && courseTitleElement && certificateBlock && courseTitleDisplay) {
+            console.log("All elements found. Adding event listeners and updating course title.");
+            
+            firstNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay));
+            lastNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay));
 
-			firstNameInput.addEventListener("input", updateCertificate);
-			lastNameInput.addEventListener("input", updateCertificate);
+            // Update the course title from the hidden element on initial load
+            courseTitleDisplay.textContent = courseTitleElement.textContent;
+            
+            obs.disconnect(); // Stop observing once everything is set up
+        } else {
+            console.log("Waiting for elements...");
+        }
+    });
 
-			// Fetch the ACF field for the course title and update it
-			// Ensure the postId is correctly determined and passed to the script
-			const postId = document.body.getAttribute("data-post-id"); // Make sure this attribute is set correctly in HTML
-			if (postId) {
-				fetch(`/wp-json/wp/v2/posts/${postId}?_fields=acf`)
-					.then((response) => response.json())
-					.then((data) => {
-						const courseName = data.acf.field_6633d7d0a91c4;
-						if (courseName) {
-							courseTitle.textContent = courseName;
-						} else {
-							courseTitle.textContent = "Made in Americana";
-						}
-					})
-					.catch((error) => console.error("Error fetching ACF field:", error));
-			} else {
-				console.error("Post ID not found");
-			}
-
-			obs.disconnect(); // Stop observing once everything is set up
-		} else {
-			console.log("Waiting for elements...");
-		}
-	});
-
-	observer.observe(document.body, {
-		childList: true,
-		subtree: true,
-	});
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 });
+
+function updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay) {
+    const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
+    nameSpan.textContent = fullName; // Update the name displayed in the certificate
+    console.log("Certificate updated to:", fullName);
+}
