@@ -20,39 +20,32 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('ws-form-2');
     const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-    // Function to set up event listeners
-    const setupEventListeners = (firstNameInput, lastNameInput) => {
-        const updateCertificate = () => {
-            const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
-            certificateBlock.textContent = `Certificado a ${fullName}`;
-            console.log("Certificate updated to:", fullName); // Debugging: Log when update occurs
-        };
+    if (form && certificateBlock) {
+        const firstNameInput = document.getElementById('wsf-2-field-1');
+        const lastNameInput = document.getElementById('wsf-2-field-2');
 
-        firstNameInput.addEventListener('input', updateCertificate); // Changed to 'input' for real-time update
-        lastNameInput.addEventListener('input', updateCertificate); // Changed to 'input' for real-time update
-        console.log("Event listeners attached."); // Debugging: Confirm listeners are attached
-    };
+        console.log("First Name Input:", firstNameInput);
+        console.log("Last Name Input:", lastNameInput);
+        console.log("Certificate Block:", certificateBlock);
 
-    // MutationObserver to ensure elements are available before adding event listeners
-    const observer = new MutationObserver((mutations, obs) => {
-        const form = document.getElementById('ws-form-2');
-        if (form) {
-            const firstNameInput = form.querySelector('input[name="field_1"]');
-            const lastNameInput = form.querySelector('input[name="field_2"]');
+        if (firstNameInput && lastNameInput) {
+            const updateCertificate = () => {
+                const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
+                certificateBlock.textContent = `Certificado a ${fullName}`;
+                console.log("Certificate updated to:", fullName); // Debugging: Log when update occurs
+            };
 
-            if (firstNameInput && lastNameInput && certificateBlock) {
-                obs.disconnect(); // Stop observing after finding the elements
-                setupEventListeners(firstNameInput, lastNameInput);
-            }
+            firstNameInput.addEventListener('input', updateCertificate); // Real-time update
+            lastNameInput.addEventListener('input', updateCertificate); // Real-time update
+            console.log("Event listeners attached."); // Debugging: Confirm listeners are attached
+        } else {
+            console.error('One or more input elements not found!');
         }
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    } else {
+        console.error('Form or certificate block not found!');
+    }
 });
-
