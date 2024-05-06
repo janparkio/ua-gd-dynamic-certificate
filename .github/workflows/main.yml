@@ -24,18 +24,22 @@ jobs:
       - name: Run Build
         run: npm run build
 
-      - name: Deploy Build Directory
+      - name: Deploy Build Directory and Essential Files
         run: |
           git config --global user.email "janpark@hotmail.com"
           git config --global user.name "Jan Park"
           git checkout --orphan build-only
-          # Temporarily move the build directory to preserve its contents
-          mv build ../build-temp
-          # Remove all files in the current directory
+          # Temporarily move the build directory and any other necessary files
+          mkdir temp-deployment
+          mv build temp-deployment/build
+          mv ua-gd-dynamic-certificate.php temp-deployment/
+          mv readme.txt temp-deployment/  # If you want to include the readme
+          # Remove all other files from the repository
           git rm -rf .
-          # Bring back the build directory
-          mv ../build-temp build
-          git add build
-          git commit -m "Deploy build directory"
-          git push origin build-only --force
-
+          # Move the necessary files back
+          mv temp-deployment/* .
+          rmdir temp-deployment
+          git add build ua-gd-dynamic-certificate.php readme.txt  # Adjust as needed
+          git commit -m "Deploy build directory and essential plugin files"
+          # Push using the GitHub Token for authentication
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/janparkio/ua-gd-dynamic-certificate.git build-only --force
