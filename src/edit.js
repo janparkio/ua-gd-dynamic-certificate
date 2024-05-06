@@ -33,7 +33,7 @@ export default function Edit() {
 	return (
 		<p { ...useBlockProps() }>
 			{ __(
-				'Ua Gd Dynamic Certificate – hello from the editor!',
+				'UA Grado | Dynamic Certificate',
 				'ua-gd-dynamic-certificate'
 			) }
 		</p>
