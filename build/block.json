@@ -2,11 +2,11 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "create-block/ua-gd-dynamic-certificate",
-  "version": "0.1.0",
-  "title": "Ua Gd Dynamic Certificate",
+  "version": "0.1.3",
+  "title": "UA Grado | Dynamic Certificate",
   "category": "widgets",
-  "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "icon": "awards",
+  "description": "Generate a dynamic certificate based on user input and course completion, styled and managed within Gutenberg.",
   "example": {},
   "supports": {
     "html": false
