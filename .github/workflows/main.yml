@@ -28,8 +28,14 @@ jobs:
         run: |
           git config --global user.email "janpark@hotmail.com"
           git config --global user.name "Jan Park"
-          git checkout --orphan build-only  # Creates a new orphan branch named 'build-only'
-          git rm -rf .  # Remove all files in the current index
-          git add build  # Add only the build directory
+          git checkout --orphan build-only
+          # Temporarily move the build directory to preserve its contents
+          mv build ../build-temp
+          # Remove all files in the current directory
+          git rm -rf .
+          # Bring back the build directory
+          mv ../build-temp build
+          git add build
           git commit -m "Deploy build directory"
-          git push origin build-only --force  # Force push to the remote 'build-only' branch
+          git push origin build-only --force
+
