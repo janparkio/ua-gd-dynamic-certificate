@@ -25,46 +25,60 @@
  * It is triggered when the DOM content is fully loaded, ensuring all elements are accessible.
  */
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("ws-form-2");
-    const certificateBlock = document.querySelector(".ua-gd-certificate");
-    const nameSpan = document.querySelector(".name-text");
-    const courseTitle = document.querySelector(".course-title");
+	const observer = new MutationObserver(function (mutations, obs) {
+		const form = document.getElementById("ws-form-2");
+		const firstNameInput = document.getElementById("wsf-2-field-1");
+		const lastNameInput = document.getElementById("wsf-2-field-2");
+		const nameSpan = document.querySelector(".name-text");
+		const courseTitle = document.querySelector(".course-title");
+		const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-    if (form && certificateBlock && nameSpan && courseTitle) {
-        const firstNameInput = document.getElementById("wsf-2-field-1");
-        const lastNameInput = document.getElementById("wsf-2-field-2");
+		// Check if all elements are available
+		if (
+			form &&
+			firstNameInput &&
+			lastNameInput &&
+			nameSpan &&
+			courseTitle &&
+			certificateBlock
+		) {
+			console.log("All elements found. Adding event listeners.");
+			const updateCertificate = () => {
+				const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
+				nameSpan.textContent = fullName;
+				console.log("Certificate updated to:", fullName);
+			};
 
-        if (firstNameInput && lastNameInput) {
-            console.log("First Name Input:", firstNameInput);
-            console.log("Last Name Input:", lastNameInput);
-            console.log("Certificate Block:", certificateBlock);
-            console.log("Course Title:", courseTitle);
+			firstNameInput.addEventListener("input", updateCertificate);
+			lastNameInput.addEventListener("input", updateCertificate);
 
-            const updateCertificate = () => {
-                const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
-                nameSpan.textContent = fullName;
-                console.log("Certificate updated to:", fullName);
-            };
+			// Fetch the ACF field for the course title and update it
+			// Ensure the postId is correctly determined and passed to the script
+			const postId = document.body.getAttribute("data-post-id"); // Make sure this attribute is set correctly in HTML
+			if (postId) {
+				fetch(`/wp-json/wp/v2/posts/${postId}?_fields=acf`)
+					.then((response) => response.json())
+					.then((data) => {
+						const courseName = data.acf.field_6633d7d0a91c4;
+						if (courseName) {
+							courseTitle.textContent = courseName;
+						} else {
+							courseTitle.textContent = "Made in Americana";
+						}
+					})
+					.catch((error) => console.error("Error fetching ACF field:", error));
+			} else {
+				console.error("Post ID not found");
+			}
 
-            firstNameInput.addEventListener("input", updateCertificate);
-            lastNameInput.addEventListener("input", updateCertificate);
-            console.log("Event listeners attached.");
-        } else {
-            console.error("One or more input elements not found!");
-        }
+			obs.disconnect(); // Stop observing once everything is set up
+		} else {
+			console.log("Waiting for elements...");
+		}
+	});
 
-        fetch("/wp-json/wp/v2/posts/" + postId + "?_fields=acf")  // Ensure postId is correctly determined
-            .then(response => response.json())
-            .then(data => {
-                const courseName = data.acf.field_6633d7d0a91c4;
-                if (courseName) {
-                    courseTitle.textContent = courseName;
-                } else {
-                    courseTitle.textContent = "Made in Americana";
-                }
-            })
-            .catch(error => console.error("Error fetching ACF field:", error));
-    } else {
-        console.error("Form, certificate block, or critical elements not found!");
-    }
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	});
 });
