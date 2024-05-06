@@ -20,43 +20,33 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-document.addEventListener("DOMContentLoaded", function () {
-	console.log("Document loaded");
-	const firstNameInput = document.querySelector('input[name="field_1"]');
-	const lastNameInput = document.querySelector('input[name="field_2"]');
-	const certificateBlock = document.querySelector(".ua-gd-certificate");
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('ws-form-2');
+    const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-	console.log("First Name Input:", firstNameInput);
-	console.log("Last Name Input:", lastNameInput);
-	console.log("Certificate Block:", certificateBlock);
+    if (form) {
+		console.log("Document loaded");
+		const firstNameInput = form.querySelector('input[name="field_1"]');
+		const lastNameInput = form.querySelector('input[name="field_2"]');
 
-	function updateCertificate() {
-		console.log("Updating certificate");
-		const firstName = firstNameInput.value;
-		const lastName = lastNameInput.value;
-		const fullName = `${firstName} ${lastName}`;
-		console.log("Full Name:", fullName);
+		console.log("First Name Input:", firstNameInput);
+		console.log("Last Name Input:", lastNameInput);
+		console.log("Certificate Block:", certificateBlock);
+		
+        const updateCertificate = () => {
+            if (firstNameInput && lastNameInput) {
+                const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
+                certificateBlock.textContent = `Certificado a ${fullName}`;
+            } else {
+                console.error('One or more input elements not found!');
+            }
+        };
 
-		fetch("/wp-json/ua-gd-dynamic-certificate/v1/certificate-title")
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				console.log("Fetched Title:", data.title);
-				certificateBlock.innerHTML = `${data.title} Nombre: ${fullName}`;
-			})
-			.catch((error) => {
-				console.error("There was a problem with your fetch operation:", error);
-			});
-	}
-
-	if (firstNameInput && lastNameInput) {
-		firstNameInput.addEventListener("input", updateCertificate);
-		lastNameInput.addEventListener("input", updateCertificate);
-	} else {
-		console.error("Input elements not found!");
-	}
+        if (firstNameInput && lastNameInput) {
+            firstNameInput.addEventListener('change', updateCertificate);
+            lastNameInput.addEventListener('change', updateCertificate);
+        }
+    } else {
+        console.error('Form not found!');
+    }
 });
