@@ -5,8 +5,92 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+ $terciary-color: #A7C6ED;
+
 .wp-block-create-block-ua-gd-dynamic-certificate {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	
+	.certificate-container {
+		width: 100%;
+		aspect-ratio: auto 2/1;
+		max-width: 800px;
+		background-color: $terciary-color;
+		box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+		padding: 1rem;
+		margin: auto;
+	}
+	
+	.certificate-border {
+		background-color: white;
+		padding: 20px;
+		border: 1px solid #E1E5F0;
+	}
+	
+	.certificate-header, .certificate-footer {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	.certificate-title {
+		font-size: 1rem;
+		margin: 0;
+		padding-bottom: 8px;
+	}
+	
+	.certificate-text {
+		font-size: 0.84rem;
+		margin: 0;
+		padding-bottom: 8px;
+	}
+	
+	.certificate-body {
+		padding: 10px;
+	}
+	
+	.certificate-block {
+		text-align: center;
+	}
+	
+	.name-text {
+		display: block;
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+	
+	.credits-text {
+		display: block;
+		font-weight: bold;
+		font-size: 0.777rem;
+	}
+	
+	.earned-text {
+		font-size: 1rem;
+	}
+
+	@mixin fancyFont($size) {
+		font-family: 'Pinyon Script', cursive;
+		font-size: $size;
+	}
+	
+	.certificate-title, .certificate-text, .earned-text {
+		@include fancyFont(1rem);
+	}
+	
+	.underline {
+		border-bottom: 1px solid #777;
+		padding-bottom: 5px;
+	}
+	
+	@media (max-width: 600px) {
+		.certificate-title, .name-text, .credits-text {
+			font-size: 1rem;
+		}
+	}
+
+	.certificate-container {
+		width: 100%;
+	
+		@media (min-width: 768px) {
+			width: 50%;
+		}
+	}
 }

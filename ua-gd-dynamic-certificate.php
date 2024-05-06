@@ -48,3 +48,9 @@ add_action('rest_api_init', function () use ($route_namespace) {
         )
     );
 });
+
+function my_acf_to_rest_api($args, $field, $post_id) {
+    $args['show_in_rest'] = true;
+    return $args;
+}
+add_filter('acf/rest_api/field_settings', 'my_acf_to_rest_api', 10, 3);

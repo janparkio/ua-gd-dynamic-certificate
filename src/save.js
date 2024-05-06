@@ -11,22 +11,38 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
  *
  * @return {Element} Element to render.
+
  */
+
+import { useBlockProps, RichText } from '@wordpress/block-editor';
+
 export default function save() {
     const blockProps = useBlockProps.save({
-        className: 'ua-gd-certificate'
+        className: 'certificate-container'
+        // className: 'ua-gd-certificate'
     });
 
     return (
         <div {...blockProps}>
-            <div className="certificate-header">
-                <h2>Certificado de apreciación</h2>
-            </div>
-            <div className="certificate-body">
-                <p>El presente título otorgado a <span className="certificate-name">[Name]</span> por haber aprobado todas las asignaturas y cumplido todos los requisitos de la carrera.</p>
-            </div>
-            <div className="certificate-footer">
-                <p>Expedido por la Universidad Americana</p>
+            <div className="certificate-border">
+                <header className="certificate-header">
+                    <p className="certificate-title">Universidad Americana</p>
+                    <img src="https://catalog.americana.edu.py/wp-content/uploads/2024/05/ua-logo-primary.png" alt="Universidad Americana Logo" style={{ height: '40px' }} />
+                </header>
+                <div className="certificate-body">
+                    <div className="certificate-block">
+                        <div className="certificate-name">
+                            <span className="earned-text">Otorga a:</span>
+                            <RichText.Content tagName="span" className="name-text" value="TU NOMBRE" />
+                        </div>
+                        <p className="certificate-text">El presente título por haber aprobado todas las asignaturas y cumplido todos los requisitos de la carrera de Ingeniería Comercial en el año 2024</p>
+                        <p className="course-title underline">Ingeniero Comercial</p>
+                    </div>
+                    <footer className="certificate-footer">
+                        <span className="credits-text">Universidad Americana</span>
+                        <span className="credits-text">Fecha: {new Date().toLocaleDateString()}</span>
+                    </footer>
+                </div>
             </div>
         </div>
     );
