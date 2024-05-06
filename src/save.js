@@ -14,8 +14,6 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
 
  */
 
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-
 export default function save() {
     const blockProps = useBlockProps.save({
         className: 'certificate-container'
