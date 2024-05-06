@@ -1,4 +1,4 @@
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 /**
  * The save function defines the way in which the different attributes should
@@ -15,33 +15,48 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
  */
 
 export default function save() {
-    const blockProps = useBlockProps.save({
-        className: 'certificate-container'
-        // className: 'ua-gd-certificate'
-    });
+	const blockProps = useBlockProps.save({
+		className: "ua-gd-certificate",
+	});
 
-    return (
-        <div {...blockProps}>
-            <div className="certificate-border">
-                <header className="certificate-header">
-                    <p className="certificate-title">Universidad Americana</p>
-                    <img src="https://catalog.americana.edu.py/wp-content/uploads/2024/05/ua-logo-primary.png" alt="Universidad Americana Logo" style={{ height: '40px' }} />
-                </header>
-                <div className="certificate-body">
-                    <div className="certificate-block">
-                        <div className="certificate-name">
-                            <span className="earned-text">Otorga a:</span>
-                            <RichText.Content tagName="span" className="name-text" value="TU NOMBRE" />
-                        </div>
-                        <p className="certificate-text">El presente título por haber aprobado todas las asignaturas y cumplido todos los requisitos de la carrera de Ingeniería Comercial en el año 2024</p>
-                        <p className="course-title underline">Ingeniero Comercial</p>
-                    </div>
-                    <footer className="certificate-footer">
-                        <span className="credits-text">Universidad Americana</span>
-                        <span className="credits-text">Fecha: {new Date().toLocaleDateString()}</span>
-                    </footer>
-                </div>
-            </div>
-        </div>
-    );
+	return (
+		<div {...blockProps}>
+			<div className="certificate-container">
+				<div className="certificate-border">
+					<header className="certificate-header">
+						<p className="certificate-title">Universidad Americana</p>
+						<img
+							src="https://catalog.americana.edu.py/wp-content/uploads/2024/05/ua-logo-primary.png"
+							alt="Universidad Americana Logo"
+							style={{ height: "40px" }}
+						/>
+					</header>
+					<div className="certificate-body">
+						<div className="certificate-block">
+							<div className="certificate-name">
+								<span className="earned-text">Otorga a:</span>
+								<RichText.Content
+									tagName="span"
+									className="name-text"
+									value="TU NOMBRE"
+								/>
+							</div>
+							<p className="certificate-text">
+								El presente título por haber aprobado todas las asignaturas y
+								cumplido todos los requisitos de la carrera de Ingeniería
+								Comercial en el año 2024
+							</p>
+							<p className="course-title underline">Ingeniero Comercial</p>
+						</div>
+						<footer className="certificate-footer">
+							<span className="credits-text">Universidad Americana</span>
+							<span className="credits-text">
+								Fecha: {new Date().toLocaleDateString()}
+							</span>
+						</footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
