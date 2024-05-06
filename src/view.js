@@ -21,32 +21,28 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('ws-form-2');
-    const certificateBlock = document.querySelector(".ua-gd-certificate");
+    const observer = new MutationObserver((mutations, obs) => {
+        const form = document.getElementById('ws-form-2');
+        const firstNameInput = form.querySelector('input[name="field_1"]');
+        const lastNameInput = form.querySelector('input[name="field_2"]');
+        const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-    if (form) {
-		console.log("Document loaded");
-		const firstNameInput = form.querySelector('input[name="field_1"]');
-		const lastNameInput = form.querySelector('input[name="field_2"]');
+        if (firstNameInput && lastNameInput && certificateBlock) {
+            obs.disconnect(); // Stop observing after finding the elements
+            console.log("Elements found, adding event listeners");
 
-		console.log("First Name Input:", firstNameInput);
-		console.log("Last Name Input:", lastNameInput);
-		console.log("Certificate Block:", certificateBlock);
-		
-        const updateCertificate = () => {
-            if (firstNameInput && lastNameInput) {
+            const updateCertificate = () => {
                 const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
                 certificateBlock.textContent = `Certificado a ${fullName}`;
-            } else {
-                console.error('One or more input elements not found!');
-            }
-        };
+            };
 
-        if (firstNameInput && lastNameInput) {
             firstNameInput.addEventListener('change', updateCertificate);
             lastNameInput.addEventListener('change', updateCertificate);
         }
-    } else {
-        console.error('Form not found!');
-    }
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 });
