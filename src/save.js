@@ -28,7 +28,7 @@ export default function save() {
 						<img
 							src="https://catalog.americana.edu.py/wp-content/uploads/2024/05/ua-logo-primary.png"
 							alt="Universidad Americana Logo"
-							style={{ height: "40px" }}
+							style={{ height: "30px" }}
 						/>
 					</header>
 					<div className="certificate-body">
