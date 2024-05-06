@@ -49,9 +49,14 @@ export default function save() {
 							<p className="course-title underline">Made in Americana</p>
 						</div>
 						<footer className="certificate-footer">
-							<span className="credits-text text-xs pt-2">Universidad Americana</span>
+							<span className="credits-text text-xs pt-2">
+								Universidad Americana
+							</span>
 							<span className="credits-text">
-								Fecha: {new Date().toLocaleDateString()}
+								Fecha:{" "}
+								{new Date(
+									new Date().setFullYear(new Date().getFullYear() + 4),
+								).toLocaleDateString()}
 							</span>
 						</footer>
 					</div>

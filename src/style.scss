@@ -15,7 +15,7 @@
 		max-width: 800px;
 		background-color: $terciary-color;
 		box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-		padding: 1rem;
+		padding: 0.84rem;
 		margin: auto;
 	}
 	
@@ -59,12 +59,14 @@
 		display: block;
 		font-weight: bold;
 		font-size: 1.2rem;
+		line-height: 1.5rem;
 	}
 	
 	.credits-text {
 		display: block;
 		font-weight: 400;
-		font-size: 0.777rem;
+		font-size: 0.75rem;
+		line-height: 1rem; /* 16px */
 	}
 
 	.text-xs {
@@ -77,16 +79,16 @@
 	}
 
 	.earned-text {
-		font-size: 1rem;
+		font-size: 0.84rem;
 	}
 
-	@mixin fancyFont($size) {
+	@mixin fancyFont() {
 		font-family: 'Pinyon Script', cursive;
-		font-size: $size;
+		// font-size: $size;
 	}
 	
 	.certificate-title, .certificate-text, .earned-text {
-		@include fancyFont(0.84rem);
+		@include fancyFont();
 	}
 	
 	.underline {
@@ -96,7 +98,7 @@
 	
 	@media (max-width: 600px) {
 		.certificate-title, .name-text, .credits-text {
-			font-size: 1rem;
+			font-size: 0.777rem;
 		}
 	}
 
