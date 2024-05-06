@@ -35,9 +35,14 @@
 		margin: 0;
 		padding-bottom: 8px;
 	}
+
+	.course-title {
+		font-size: 1rem;
+		font-weight: bold;
+	}
 	
 	.certificate-text {
-		font-size: 0.84rem;
+		font-size: 0.65rem;
 		margin: 0;
 		padding-bottom: 8px;
 	}
@@ -58,7 +63,7 @@
 	
 	.credits-text {
 		display: block;
-		font-weight: bold;
+		font-weight: 400;
 		font-size: 0.777rem;
 	}
 
