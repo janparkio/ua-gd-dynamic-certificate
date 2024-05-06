@@ -44,7 +44,7 @@ export default function save() {
 							<p className="certificate-text">
 								El presente título por haber aprobado todas las asignaturas y
 								cumplido todos los requisitos de la carrera de Ingeniería
-								Comercial en el año 2024
+								Comercial en el año {new Date().getFullYear() + 4}
 							</p>
 							<p className="course-title underline">Made in Americana</p>
 						</div>
