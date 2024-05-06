@@ -20,13 +20,13 @@ export default function save() {
     return (
         <div {...blockProps}>
             <div className="certificate-header">
-                <h2>Certificate of Appreciation</h2>
+                <h2>Certificado de apreciación</h2>
             </div>
             <div className="certificate-body">
-                <p>This is to certify that <span className="certificate-name">[Name]</span> has been awarded this certificate for outstanding performance and dedication.</p>
+                <p>El presente título otorgado a <span className="certificate-name">[Name]</span> por haber aprobado todas las asignaturas y cumplido todos los requisitos de la carrera.</p>
             </div>
             <div className="certificate-footer">
-                <p>Issued by Universidad Americana</p>
+                <p>Expedido por la Universidad Americana</p>
             </div>
         </div>
     );

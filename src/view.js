@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	console.log("Document loaded");
 	const firstNameInput = document.querySelector('input[name="field_1"]');
 	const lastNameInput = document.querySelector('input[name="field_2"]');
-	const certificateBlock = document.querySelector(".your-certificate-class");
+	const certificateBlock = document.querySelector(".ua-gd-certificate");
 
 	console.log("First Name Input:", firstNameInput);
 	console.log("Last Name Input:", lastNameInput);
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			})
 			.then((data) => {
 				console.log("Fetched Title:", data.title);
-				certificateBlock.innerHTML = `Certificate of ${data.title} awarded to ${fullName}`;
+				certificateBlock.innerHTML = `${data.title} Nombre: ${fullName}`;
 			})
 			.catch((error) => {
 				console.error("There was a problem with your fetch operation:", error);
