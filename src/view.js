@@ -24,24 +24,25 @@
  * This script is meant to run on the front-end for a specific block that includes dynamic interaction based on form input and ACF data.
  * It is triggered when the DOM content is fully loaded, ensuring all elements are accessible.
  */
+
 document.addEventListener("DOMContentLoaded", function () {
     const observer = new MutationObserver(function (mutations, obs) {
         const form = document.getElementById("ws-form-2");
         const firstNameInput = document.getElementById("wsf-2-field-1");
         const lastNameInput = document.getElementById("wsf-2-field-2");
         const nameSpan = document.querySelector(".name-text");
-        const courseTitleElement = document.getElementById("course-title-hidden"); // Get the hidden p element for course title
-        const courseTitleDisplay = document.querySelector(".course-title"); // Element to display the course title
+        const headingTitle = document.getElementById("heading-title"); // Get the hidden title for dynamic update
+        const headingTextTitle = document.querySelector(".heading-text-title"); // Element to display the heading title
         const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-        if (form && firstNameInput && lastNameInput && nameSpan && courseTitleElement && certificateBlock && courseTitleDisplay) {
-            console.log("All elements found. Adding event listeners and updating course title.");
+        if (form && firstNameInput && lastNameInput && nameSpan && headingTitle && headingTextTitle && certificateBlock) {
+            console.log("All elements found. Adding event listeners and updating dynamic content.");
             
-            firstNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay));
-            lastNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay));
+            firstNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, headingTitle, headingTextTitle));
+            lastNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, headingTitle, headingTextTitle));
 
-            // Update the course title from the hidden element on initial load
-            courseTitleDisplay.textContent = courseTitleElement.textContent;
+            // Update the heading title from the hidden element on initial load
+            headingTextTitle.textContent = headingTitle.textContent;
             
             obs.disconnect(); // Stop observing once everything is set up
         } else {
@@ -55,8 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function updateCertificate(firstNameInput, lastNameInput, nameSpan, courseTitleElement, courseTitleDisplay) {
+function updateCertificate(firstNameInput, lastNameInput, nameSpan, headingTitle, headingTextTitle) {
     const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
     nameSpan.textContent = fullName; // Update the name displayed in the certificate
+    headingTextTitle.textContent = headingTitle.textContent; // Update the course title dynamically
     console.log("Certificate updated to:", fullName);
 }

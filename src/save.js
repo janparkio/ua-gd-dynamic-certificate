@@ -43,7 +43,7 @@ export default function save() {
 							</div>
 							<p className="certificate-text">
 								El presente título por haber aprobado todas las asignaturas y
-								cumplido todos los requisitos de la carrera de <span class="course-title"></span> en el año {new Date().getFullYear() + 4}
+								cumplido todos los requisitos de la carrera de <span class="heading-text-title"></span> en el año {new Date().getFullYear() + 4}
 							</p>
 							<p className="course-title underline">Made in Americana</p>
 						</div>
