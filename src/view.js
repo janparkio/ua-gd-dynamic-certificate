@@ -27,46 +27,43 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("ws-form-2");
     const certificateBlock = document.querySelector(".ua-gd-certificate");
-    const nameSpan = document.querySelector(".name-text"); // The span where the full name is displayed
-    const courseTitle = document.querySelector(".course-title"); // The span where the course title is displayed
-
-    // Log the elements to confirm they are correctly selected
-    console.log("First Name Input:", firstNameInput);
-    console.log("Last Name Input:", lastNameInput);
-    console.log("Certificate Block:", certificateBlock);
-    console.log("Course Title:", courseTitle);
+    const nameSpan = document.querySelector(".name-text");
+    const courseTitle = document.querySelector(".course-title");
 
     if (form && certificateBlock && nameSpan && courseTitle) {
         const firstNameInput = document.getElementById("wsf-2-field-1");
         const lastNameInput = document.getElementById("wsf-2-field-2");
 
         if (firstNameInput && lastNameInput) {
+            console.log("First Name Input:", firstNameInput);
+            console.log("Last Name Input:", lastNameInput);
+            console.log("Certificate Block:", certificateBlock);
+            console.log("Course Title:", courseTitle);
+
             const updateCertificate = () => {
                 const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
-                nameSpan.textContent = fullName; // Update the name displayed in the certificate
-                console.log("Certificate updated to:", fullName); // Debugging: Log when update occurs
+                nameSpan.textContent = fullName;
+                console.log("Certificate updated to:", fullName);
             };
 
-            // Attach event listeners for real-time update
             firstNameInput.addEventListener("input", updateCertificate);
             lastNameInput.addEventListener("input", updateCertificate);
-            console.log("Event listeners attached."); // Debugging: Confirm listeners are attached
+            console.log("Event listeners attached.");
         } else {
             console.error("One or more input elements not found!");
         }
 
-        // Fetch the ACF field for the course title and update it
-        fetch("/wp-json/wp/v2/posts/" + postId + "?_fields=acf") // postId needs to be dynamically determined or passed
-            .then((response) => response.json())
-            .then((data) => {
-                const courseName = data.acf.field_6633d7d0a91c4; // Access the ACF field value
+        fetch("/wp-json/wp/v2/posts/" + postId + "?_fields=acf")  // Ensure postId is correctly determined
+            .then(response => response.json())
+            .then(data => {
+                const courseName = data.acf.field_6633d7d0a91c4;
                 if (courseName) {
                     courseTitle.textContent = courseName;
                 } else {
-                    courseTitle.textContent = "Made in Americana"; // Default text if no ACF value
+                    courseTitle.textContent = "Made in Americana";
                 }
             })
-            .catch((error) => console.error("Error fetching ACF field:", error));
+            .catch(error => console.error("Error fetching ACF field:", error));
     } else {
         console.error("Form, certificate block, or critical elements not found!");
     }

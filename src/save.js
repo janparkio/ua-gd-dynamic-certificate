@@ -46,10 +46,10 @@ export default function save() {
 								cumplido todos los requisitos de la carrera de Ingeniería
 								Comercial en el año 2024
 							</p>
-							<p className="course-title underline">Ingeniero Comercial</p>
+							<p className="course-title underline">Made in Americana</p>
 						</div>
 						<footer className="certificate-footer">
-							<span className="credits-text">Universidad Americana</span>
+							<span className="credits-text text-xs pt-2">Universidad Americana</span>
 							<span className="credits-text">
 								Fecha: {new Date().toLocaleDateString()}
 							</span>
