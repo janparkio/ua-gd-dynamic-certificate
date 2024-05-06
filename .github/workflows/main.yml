@@ -1,0 +1,35 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Set this to the branch you want to trigger the build from
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Set this to your project's required node version
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Deploy Build Directory
+        run: |
+          git config --global user.email "janpark@hotmail.com"
+          git config --global user.name "Jan Park"
+          git checkout --orphan build-only  # Creates a new orphan branch named 'build-only'
+          git rm -rf .  # Remove all files in the current index
+          git add build  # Add only the build directory
+          git commit -m "Deploy build directory"
+          git push origin build-only --force  # Force push to the remote 'build-only' branch
