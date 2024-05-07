@@ -21,7 +21,7 @@ export default function save() {
 
 	return (
 		<div {...blockProps}>
-			<div className="certificate-container">
+			<div className="certificate-container font-sans">
 				<div className="certificate-border">
 					<header className="certificate-header">
 						<p className="certificate-title">Universidad Americana</p>
