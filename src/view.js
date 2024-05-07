@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const headingTitle = document.getElementById("heading-title");
         const headingTextChange = document.getElementById("heading-title-textchange");
         const courseTitle = document.getElementById("course-title");
-        const courseTextChange = document.getElementById("heading-title-textchange");
+        const courseTextChange = document.getElementById("course-title-textchange");
         // const certificateBlock = document.querySelector(".ua-gd-certificate");
 
         if (form && firstNameInput && lastNameInput && nameSpan && headingTitle && headingTextChange) {
