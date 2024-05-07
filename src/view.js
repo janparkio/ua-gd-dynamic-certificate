@@ -30,14 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("ws-form-2");
         const firstNameInput = document.getElementById("wsf-2-field-1");
         const lastNameInput = document.getElementById("wsf-2-field-2");
-        const nameSpan = document.querySelector(".name-text");
+        const nameSpan = document.getElementById("name-text");
         const headingTitle = document.getElementById("heading-title");
         const headingTextChange = document.getElementById("heading-title-textchange");
         const courseTitle = document.getElementById("course-title");
         const courseTextChange = document.getElementById("heading-title-textchange");
-        const certificateBlock = document.querySelector(".ua-gd-certificate");
+        // const certificateBlock = document.querySelector(".ua-gd-certificate");
 
-        if (form && firstNameInput && lastNameInput && nameSpan && headingTitle && headingTextChange && certificateBlock) {
+        if (form && firstNameInput && lastNameInput && nameSpan && headingTitle && headingTextChange) {
             console.log("All elements found. Adding event listeners and updating dynamic content.");
             
             firstNameInput.addEventListener("input", () => updateCertificate(firstNameInput, lastNameInput, nameSpan, headingTitle, headingTextChange));
@@ -45,12 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Update the heading title from the hidden element on initial load
             headingTextChange.textContent = headingTitle.textContent;
-             // course title update
-            if (courseTitle && courseTextChange) {
-                // Update the course title text from the hidden element on initial load
-                courseTextChange.textContent = courseTitle.textContent;
-            }
-            
+            // Update the course title text from the hidden element on initial load
+            courseTextChange.textContent = courseTitle.textContent;
+
             obs.disconnect(); // Stop observing once everything is set up
         } else {
             console.log("Waiting for elements...");
@@ -68,5 +65,6 @@ function updateCertificate(firstNameInput, lastNameInput, nameSpan, headingTitle
     const fullName = `${firstNameInput.value} ${lastNameInput.value}`;
     nameSpan.textContent = fullName; // Update the name displayed in the certificate
     headingTextChange.textContent = headingTitle.textContent; // Update the course title dynamically
+    courseTextChange.textContent = courseTitle.textContent;
     console.log("Certificate updated to:", fullName);
 }

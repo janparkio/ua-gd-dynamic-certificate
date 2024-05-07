@@ -38,6 +38,7 @@ export default function save() {
 								<RichText.Content
 									tagName="span"
 									className="name-text"
+									id="name-text"
 									value="TU NOMBRE"
 								/>
 							</div>
